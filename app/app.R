@@ -19,9 +19,10 @@ ui <- fluidPage(
   theme = miTema, 
     
   fluidRow(
-    column(2, align="center", img( src = "logo.png", height = 90, width = 72)),
-    column(2, align="center", imageOutput(outputId = "ligaLogo", 
-                              height = "100px", width = "100px", inline = T)),
+    column(2, align="center", img(src="logo.png", height=90, width=72)),
+    column(2, align="center", 
+           imageOutput(outputId="ligaLogo", height="100px", 
+                       width="100px", inline=T)),
     column(6, titlePanel("Proyecto R - BEDU: LaLiga Española")),
     column(2, radioButtons("tema_actual", "Modo:", 
                         choiceNames = list(icon("moon"), icon("sun")),
@@ -29,12 +30,13 @@ ui <- fluidPage(
                         inline = T),
     ),
   ),
+  
   fluidRow(
-    column(8,
+    column(12,
       navlistPanel(
         tabPanel(
           title = "Descripcion e Integrantes",
-          icon = icon("glyphicon glyphicon glyphicon-stats", lib = "glyphicon"),
+          icon = icon("glyphicon glyphicon-user", lib = "glyphicon"),
           column(
             4,
             p("<Drescripcion>"),
@@ -42,12 +44,12 @@ ui <- fluidPage(
           )
         ),
         tabPanel(
-        title = "Gráficas de goles",
-        icon = icon("glyphicon glyphicon glyphicon-stats", lib = "glyphicon"),
+        title = "Gráficas de Goles",
+        icon = icon("glyphicon glyphicon-stats", lib = "glyphicon"),
         br(),
         fluidRow(
           column(
-            4,
+            6,
             selectInput(
               inputId = "team.type",
               label = "Seleccione el tipo de equipo",
@@ -55,7 +57,7 @@ ui <- fluidPage(
             )
           ),
           column(
-            4,
+            6,
             uiOutput("team.select")
           )
         ),
@@ -64,52 +66,84 @@ ui <- fluidPage(
         shinycssloaders::withSpinner(
           plotOutput("bar.grafics", "auto", 700)
         ),
-        
-        
         p("Interpretacion")
       ),
-      tabPanel("Postwork 3", 
-               titlePanel(h2("Gráficas del Postwork 3", align = "center")),
-               icon = icon("glyphicon glyphicon glyphicon-picture", lib = "glyphicon"),
+      tabPanel("Probabilidades Marginales", 
+               titlePanel(h2("Gráficas de Probabilidades Marginales", align = "center")),
+               icon = icon("glyphicon glyphicon-picture", lib = "glyphicon"),
                
-               fluidRow( 
-                 h3("Probabilidades marginales de los goles del equipo local", align = "center"),
-                 imageOutput(outputId = "pw31", inline = T),
+               fluidRow(
                  
-                 h3("Probabilidades marginales de los goles del equipo visitante", align = "center"),
-                 imageOutput(outputId = "pw32", inline = T),
+                 tabsetPanel(
+                   type = "pills",
+                   tabPanel(title = "Marginales Local",
+                            icon = icon("dot-circle-o"),
+                            br(),
+                            h3("Probabilidades marginales de los goles del equipo local", align = "center"),
+                            imageOutput(outputId = "pw31", inline = T),
+                            p("Interpretacion")
+                            ),
+                   tabPanel(title = "Marginales Visitante",
+                            icon = icon("dot-circle-o"),
+                            br(),
+                            h3("Probabilidades marginales de los goles del equipo visitante", align = "center"),
+                            imageOutput(outputId = "pw32", inline = T),
+                            p("Interpretacion")
+                   ),
+                   tabPanel(title = "Heatmap Conjuntas",
+                            icon = icon("dot-circle-o"),
+                            br(),
+                            h3("Heatmap de las probabilidades conjuntas estimadas del número de goles
+                            anotados", align = "center"), imageOutput(outputId = "pw33", inline = T),
+                            p("Interpretacion")
+                   )
+                 ),
                  
-                 h3("Heatmap de las probabilidades conjuntas estimadas del número de goles
-            anotados", align = "center"), imageOutput(outputId = "pw33", inline = T)
+                 
+                 
+                 
+                 
+                 
+                 
                  
                ) )
       ,
-      tabPanel("Ganancias",
-               titlePanel(h3("Ganancias estimadas")),
+      tabPanel("Ganancias Estimadas",
+               titlePanel(h3("Ganancias Estimadas")),
+               icon = icon("glyphicon glyphicon-piggy-bank", lib = "glyphicon"),
                #selectInput("tipo_momios", "Momios",
                #            c("Máximos" = "maximo",
               #               "Promedio" = "promedio")) ,
                #conditionalPanel(condition = "input.tipo_momios == 'maximo'",
-               fluidRow(
-                  column(6, h3("Factor de ganancia Máximo"),
-                            imageOutput(outputId = "maxMom",
-                                            inline = T)
-                         ),
-               #),
-               #conditionalPanel(condition = "input.tipo_momios == 'promedio' ",
-                  column(6,h3("Factor de ganancia Promedio"),
-                                imageOutput(outputId = "proMom",
-                                            inline = T)
-                        )
-               ),
-              p("Interpretacion"),
+               
+              
+              tabsetPanel(
+                type = "pills",
+                tabPanel(title = "Factor de Ganancia Máximo",
+                         icon = icon("dot-circle-o"),
+                         br(),
+                         h3("Factor de Ganancia Máximo"),
+                         imageOutput(outputId = "maxMom",
+                                     inline = T),
+                         p("Interpretacion")
+                ),
+                tabPanel(title = "Factor de Ganancia Promedio",
+                         icon = icon("dot-circle-o"),
+                         br(),
+                         h3("Factor de Ganancia Promedio"),
+                         imageOutput(outputId = "proMom",
+                                     inline = T),
+                         p("Interpretacion")
+                ),
+                )
+              
                 #),
         ),
       #Pestania de Data frame. Nota: Puede tomar algo de tiempo en cargar
       
       tabPanel(
-        title = "Summary",
-        icon = icon("glyphicon glyphicon glyphicon-stats", lib = "glyphicon"),
+        title = "Tabla de Resultados de Partidos",
+        icon = icon("glyphicon glyphicon-th", lib = "glyphicon"),
         
         shinycssloaders::withSpinner(
           dataTableOutput("match.data")
