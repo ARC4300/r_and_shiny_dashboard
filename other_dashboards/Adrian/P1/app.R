@@ -27,7 +27,7 @@ datos <- read.csv(url, header = TRUE)
 
 # Para añadir elementos al cuerpo usamos las funciones tabItems y tabItem
 
-addResourcePath(prefix = 'fotos', directoryPath = '~/BEDU/Proyecto/P1/www' )
+addResourcePath(prefix = 'fotos', directoryPath = 'C:/Users/gabg_/Escritorio/Proyecto de R - Santander-BEDU/r_and_shiny_dashboard/app/www/' )
 ui <- fluidPage(
     
     dashboardPage(

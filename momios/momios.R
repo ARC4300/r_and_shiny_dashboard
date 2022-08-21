@@ -7,7 +7,7 @@ library(ggplot2)
 
 # Colocar el directorio de trabajo según corresponda
 
-setwd("C:/Users/User/Documents/Bedu/Sesion 8/post/")
+setwd("C:/Users/gabg_/Escritorio/Proyecto de R - Santander-BEDU/r_and_shiny_dashboard/")
 
 # Descarga de archivos
 # https://www.football-data.co.uk/spainm.php
