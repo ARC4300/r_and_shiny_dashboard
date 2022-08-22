@@ -74,8 +74,7 @@ ui <- fluidPage(
         <a href='https://es.wikipedia.org/wiki/Primera_Divisi%C3%B3n_de_Espa%C3%B1a'>
         aquí</a><br><br>
         A continuación se presenta información de los partidos jugados por 
-        temporada,
-        desde 2017 hasta 2020, <a href='https://www.football-data.co.uk/spainm.php'>
+        temporada, <a href='https://www.football-data.co.uk/spainm.php'>
         fuente</a>.<br><br>
         Con ayuda de este Dashboard puedes analizaruna predicción del resultado 
         de un partido futuro, basada en los resultados de partidos previos de 
@@ -194,7 +193,7 @@ ui <- fluidPage(
             br(),
             h3(
               "Heatmap de las probabilidades conjuntas estimadas del número de 
-              golesanotados",
+              goles anotados",
               align = "center"
             ),
             imageOutput(outputId = "pw33", inline = T),
