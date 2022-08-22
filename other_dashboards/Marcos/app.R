@@ -33,30 +33,28 @@ ui <- fluidPage(
     column(8,
       navlistPanel(
       tabPanel("Barras", 
-             titlePanel("Número de goles a favor y en contra por equipo:"), 
+             titlePanel("Número de partidos por número de goles de visitante o casa"), 
              selectInput("x", "Seleccione el valor de X",
                          choices = c("home.score", "away.score")),
              plotOutput("plotGoles", height = 450, width = 750)
         ),
       tabPanel("Ganancias",
                titlePanel(h3("Ganancias estimadas")),
-               #selectInput("tipo_momios", "Momios",
-               #            c("Máximos" = "maximo",
-              #               "Promedio" = "promedio")) ,
-               #conditionalPanel(condition = "input.tipo_momios == 'maximo'",
-               fluidRow(
-                  column(6, h3("Factor de ganancia Máximo"),
+               selectInput("tipo_momios", "Momios",
+                           c("Máximos" = "maximo",
+                             "Promedio" = "promedio")) ,
+               conditionalPanel(condition = "input.tipo_momios == 'maximo'",
+                  column(12, h3("Factor de ganancia Máximo"),
                             imageOutput(outputId = "maxMom",
                                             inline = T)
                          ),
-               #),
-               #conditionalPanel(condition = "input.tipo_momios == 'promedio' ",
-                  column(6,h3("Factor de ganancia Promedio"),
+               ),
+               conditionalPanel(condition = "input.tipo_momios == 'promedio'",
+                  column(12, h3("Factor de ganancia Promedio"),
                                 imageOutput(outputId = "proMom",
                                             inline = T)
                         )
                ),
-                #),
         ),
       #Pestania de Data frame. Nota: Puede tomar algo de tiempo en cargar
       tabPanel("Data Table", 
@@ -84,12 +82,12 @@ server <- function(input, output, session) {
     data <- mutate(data, FTR = ifelse(home.score > away.score, "H", 
                                       ifelse(home.score < away.score, 
                                              "A", "D")))
-    x <- data[,input$x]
+    x <- data[,"home.score"]
   
     data %>% ggplot(aes(x, fill = FTR)) + 
       geom_bar() + 
       facet_wrap("away.team") +
-      labs(x =input$x, y = "Goles") + 
+      labs(x =input$x, y = "Partidos") + 
       ylim(0,50)
   })
   

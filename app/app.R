@@ -142,7 +142,7 @@ ui <- fluidPage(
         
       ),
       tabPanel(
-        "Probabilidades Marginales",
+        "Probabilidades",
         titlePanel(h2(
           "Gráficas de Probabilidades Marginales", align = "left"
         )),
@@ -205,7 +205,51 @@ ui <- fluidPage(
         anterior, al existir una acumulación alrededor de los resultados 
               cercanos a 1-1."
             )
-          )
+          ),
+          tabPanel(
+            title = "Contraste de hipótesis",
+            icon = icon("dot-circle-o"),
+            br(),
+            h3(
+              "Contraste de hipótesis",
+              align = "center"
+            ),
+            HTML(
+              "
+      <p style='text-align: justify'>
+        Dadas las gráficas mostradas tenemos la siguiente hipótesis: que el 
+        equipo de casa haya anotado un gol es independiente de si el equipo 
+        visitante también haya anotado un gol. Si esto ocurre, tendríamos que 
+        el cociente entre el producto de las probabilidades marginales 
+        (visitante=1, casa=1) y la probabilidad conjunta (resultado=1-1) sería 
+        igual a 1. Llamemos a este cociente C. </p>
+        <p style='text-align: justify'>
+        Proponemos entonce el siguiente contraste de hipótesis: </p>
+        <p style='text-align: justify'>
+        H0: C=1     H1: C!=1</p>
+        <p style='text-align: justify'>
+        Mediante el método de 
+        <a href='https://es.wikipedia.org/wiki/Bootstrapping_(estad%C3%ADstica)'>
+        bootstrap</a> generamos una serie de muestras 
+        simuladas de forma aleatoria a partir de nuestra muestra (partidos de 
+        LaLiga de 2017 a 2020). En total generamos 1,000 muestras. Para cada 
+        muestra calculamos C. El resultado es la siguiente distribución:</p>"
+            ),
+            img(src="histoH0.png"),
+            HTML(
+              "
+      <p style='text-align: justify'>
+        Vemos que los cocientes siguen una distribución similar a una gaussiana, 
+        con mediana 1.034 y media 1.033. Podemos calcular nuestro estadístico 
+        de prueba, tomando en cuenta que nuestra muestra es grande:</p>
+        <p style='text-align: justify'>
+        z0= mean(C)-1 / sqrt(var(C)/100)</p>
+        <p style='text-align: justify'>
+        Con este estadístico calculamos el valor de p-value de dos colas, usando 
+        la función pnorm. El resultado es un p-value de 7E-24, prácticamente 0. 
+        Ya que el p-value<0.05 rechazamos H0.</p>"
+            )
+          ),
         ),
       )
       ,
