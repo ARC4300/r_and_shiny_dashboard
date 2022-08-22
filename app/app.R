@@ -81,7 +81,8 @@ ui <- fluidPage(
         LaLiga.<br><br>
         Puedes encontrar un video en el que se describen las principales
         características de este proyecto en la siguiente liga ->
-        <a href='https://www.google.com'>video</a>.<br><br>
+        <a href='https://drive.google.com/file/d/1pXD-hrRvquh9LEBleiv1yvnlO0q0Nn6a/view?usp=sharing'>
+        video</a>.<br><br>
         ¡Esperamos que disfrutes tu paso por aquí! </p>
           <h2>Integrantes - Equipo 19</h2>
           <ul>
